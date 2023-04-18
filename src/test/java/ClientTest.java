@@ -1,18 +1,16 @@
-import org.db.Client;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.db.client.Client;
+import org.junit.jupiter.api.*;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestClass {
+public class ClientTest extends BaseTest {
 
     private Client client;
 
     @BeforeEach
-    public void setup() throws IOException {
+    public void setupClient() throws IOException {
         client = new Client();
         client.startConnection("127.0.0.1", 4444);
     }
@@ -27,7 +25,7 @@ public class TestClass {
     }
 
     @AfterEach
-    public void tearDown() throws IOException {
+    public void stop() throws IOException {
         client.stopConnection();
     }
 }

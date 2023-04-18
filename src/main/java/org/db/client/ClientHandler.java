@@ -1,5 +1,6 @@
-package org.db;
+package org.db.client;
 
+import org.db.storage.DataBase;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -8,11 +9,11 @@ import java.net.Socket;
 
 public class ClientHandler extends Thread {
     private final Socket clientSocket;
-    private final InMemoryStorage storage;
+    private final DataBase dataBase;
 
-    public ClientHandler(Socket socket, InMemoryStorage storage) {
+    public ClientHandler(Socket socket, DataBase dataBase) {
         this.clientSocket = socket;
-        this.storage = storage;
+        this.dataBase = dataBase;
     }
 
     @Override
@@ -34,12 +35,12 @@ public class ClientHandler extends Thread {
                     out.println("terminated");
                     break;
                 } else if ("put".equals(command)) {
-                    storage.save(query[1], query[2]);
-                    out.println(storage.find(query[1]));
+                    dataBase.save(query[1], query[2]);
+                    out.println(dataBase.find(query[1]));
                 } else if ("get".equals(command)) {
-                    out.println(storage.find(query[1]));
+                    out.println(dataBase.find(query[1]));
                 } else if ("delete".equals(command)) {
-                    storage.delete(query[1]);
+                    dataBase.delete(query[1]);
                     out.println();
                 } else {
                     out.println(query[0] + " is not a valid command");

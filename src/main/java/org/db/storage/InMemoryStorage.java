@@ -1,27 +1,30 @@
-package org.db;
+package org.db.storage;
 
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class InMemoryStorage {
+public class InMemoryStorage<K, V> implements Storage<K, V> {
 
-    private final Map<String,String> inMemory;
+    private final Map<K, V> inMemory;
 
     public InMemoryStorage() {
         inMemory = new ConcurrentHashMap<>();
     }
 
-    public String find(String key) {
+    @Override
+    public V find(K key) {
         return inMemory.get(key);
     }
 
-    public String save(String key, String value) {
+    @Override
+    public V save(K key, V value) {
         inMemory.put(key, value);
         return value;
     }
 
-    public void delete(String key) {
+    @Override
+    public void delete(K key) {
         inMemory.remove(key);
     }
 }

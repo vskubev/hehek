@@ -1,5 +1,4 @@
-package org.db;
-
+package org.db.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
